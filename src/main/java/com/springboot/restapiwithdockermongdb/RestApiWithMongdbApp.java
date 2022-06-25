@@ -4,6 +4,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,24 +18,41 @@ public class RestApiWithMongdbApp {
     public static void main(String[] args) {
         SpringApplication.run(RestApiWithMongdbApp.class, args);
     }
+
     @Bean
-    CommandLineRunner runner(StudentRepository repository){
+    CommandLineRunner runner(StudentRepository repository, MongoTemplate mongoTemplate) {
         return args -> {
             Address address = new Address(
-                    "Brazil",
-                    "Manaus",
-                    "69058-418"
+                    "USA",
+                    "California",
+                    "456-418"
             );
-          Student student = new Student(
-                  "Gleides",
-                  "Vinente",
-                  "gvs@gmail.com",
-                  Gender.MALE, address,
-                  List.of("Engineer Science"),
-                  BigDecimal.TEN,
-                  LocalDateTime.now()
-          );
-          repository.insert(student);
+            String email = "salves@gmail.com";
+            Student student = new Student(
+                    "Samanta",
+                    "Alves",
+                    email,
+                    Gender.FEMALE, address,
+                    List.of("Lawyer"),
+                    BigDecimal.TEN,
+                    LocalDateTime.now()
+            );
+
+            Query query = new Query();
+            query.addCriteria(Criteria.where("email").is(email));
+
+            List<Student> students = mongoTemplate.find(query, Student.class);
+            if (students.size() > 1){
+                throw new IllegalStateException(
+                        "Found many students with email" + email
+                );
+            }
+            if(students.isEmpty()){
+                System.out.println("Inserting student" + student);
+                repository.insert(student);
+            }else{
+                System.out.println(student + "alredy exists");
+            }
         };
     }
 
