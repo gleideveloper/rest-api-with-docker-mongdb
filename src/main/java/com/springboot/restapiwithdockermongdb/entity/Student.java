@@ -1,5 +1,7 @@
-package com.springboot.restapiwithdockermongdb;
+package com.springboot.restapiwithdockermongdb.entity;
 
+import com.springboot.restapiwithdockermongdb.entity.Address;
+import com.springboot.restapiwithdockermongdb.entity.Gender;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

@@ -1,5 +1,6 @@
-package com.springboot.restapiwithdockermongdb;
+package com.springboot.restapiwithdockermongdb.repository;
 
+import com.springboot.restapiwithdockermongdb.entity.Student;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;

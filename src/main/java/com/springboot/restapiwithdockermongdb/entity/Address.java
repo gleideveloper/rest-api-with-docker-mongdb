@@ -1,4 +1,4 @@
-package com.springboot.restapiwithdockermongdb;
+package com.springboot.restapiwithdockermongdb.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

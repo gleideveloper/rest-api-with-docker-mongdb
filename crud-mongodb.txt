@@ -29,6 +29,6 @@ db.student.insertOne(
         ],
         totalSpendInBooks: '12',
         created: ISODate('2022-06-24T18:55:13.509Z'),
-        _class: 'com.springboot.restapiwithdockermongdb.Student'
+        _class: 'com.springboot.restapiwithdockermongdb.entity.Student'
     }
     )
